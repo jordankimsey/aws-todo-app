@@ -69,9 +69,9 @@ const Card = () => {
       <div className='text-gray-300 flex justify-between border-t absolute bottom-0 left-0 right-0 border-gray-100 p-3'>
         <ItemsLeft numberofitems={3} />
               <div className='flex'>
-                  <div className='hover:text-black'>All</div>
-                  <div className='hover:text-black pl-3 pr-3'>Active</div>
-                  <div className='hover:text-black'>Completed</div>
+                  <div className='selected hover:text-black cursor-pointer'>All</div>
+                  <div className='hover:text-black pl-3 pr-3 cursor-pointer'>Active</div>
+                  <div className='hover:text-black cursor-pointer'>Completed</div>
           {/* <button className='selected hover:text-black'>All</button>
           <button className='pl-3 pr-3 hover:text-black'>Active</button>
           <button className='hover:text-black'>Completed</button> */}
