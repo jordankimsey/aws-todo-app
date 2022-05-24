@@ -1,8 +1,10 @@
 import React from 'react'
 
-const ItemsLeft = () => {
+const ItemsLeft = ({numberofitems}) => {
   return (
-    <div>ItemsLeft</div>
+    <div>
+      <p>{ numberofitems} item left</p>
+    </div>
   )
 }
 

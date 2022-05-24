@@ -43,7 +43,7 @@ const Card = () => {
   // }
 
   return (
-    <div className='container-sm mx-auto relative h-96 bg-white border rounded-md border-gray-300 shadow-md w-5/6 md:w-3/5 lg:w-2/6 text-left'>
+    <div className='container-sm mx-auto relative h-64 bg-white border rounded-sm border-gray-300 shadow-md w-5/6 md:w-3/5 lg:w-2/6 text-left'>
       <div className='relative flex items-center text-gray-300 focus-within:text-gray-500'>
         <FaChevronDown className='absolute ml-2' />
         <input
@@ -57,7 +57,7 @@ const Card = () => {
       <div className='flex flex-col'>
         <TaskItem todo='Clean Laundry' />
         <TaskItem todo='Workout' />
-        <TaskItem todo='Go grocery shopping' />
+        <TaskItem todo='Go grocery shopping' />    
       </div>
 
       {todos.map((todo, index) => (
@@ -66,15 +66,18 @@ const Card = () => {
           <p>{todo.isComplete}</p>
         </div>
       ))}
-      <div className='flex justify-between border-t absolute bottom-0 left-0 right-0 border-gray-100 p-3'>
-        <ItemsLeft numberofitems={0} />
-        <div className=''>
-          <button>All</button>
-          <button>Active</button>
-          <button>Completed</button>
+      <div className='text-gray-300 flex justify-between border-t absolute bottom-0 left-0 right-0 border-gray-100 p-3'>
+        <ItemsLeft numberofitems={3} />
+              <div className='flex'>
+                  <div className='hover:text-black'>All</div>
+                  <div className='hover:text-black pl-3 pr-3'>Active</div>
+                  <div className='hover:text-black'>Completed</div>
+          {/* <button className='selected hover:text-black'>All</button>
+          <button className='pl-3 pr-3 hover:text-black'>Active</button>
+          <button className='hover:text-black'>Completed</button> */}
         </div>
         <div>
-          <button>Clear Completed</button>
+          <button className='hover:text-black'>Clear Completed</button>
         </div>
       </div>
     </div>
