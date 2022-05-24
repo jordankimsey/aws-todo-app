@@ -43,7 +43,7 @@ const Card = () => {
   // }
 
   return (
-    <div className='container-sm mx-auto bg-white border rounded-md border-gray-300 shadow-md w-5/6 md:w-3/5 lg:w-2/6 text-left'>
+    <div className='container-sm mx-auto relative h-96 bg-white border rounded-md border-gray-300 shadow-md w-5/6 md:w-3/5 lg:w-2/6 text-left'>
       <div className='relative flex items-center text-gray-300 focus-within:text-gray-500'>
         <FaChevronDown className='absolute ml-2' />
         <input
@@ -54,7 +54,7 @@ const Card = () => {
         />
       </div>
       {/* <button onClick={addTodo}>Create Todo</button> */}
-      <div>
+      <div className='flex flex-col'>
         <TaskItem todo='Clean Laundry' />
         <TaskItem todo='Workout' />
         <TaskItem todo='Go grocery shopping' />
@@ -66,9 +66,9 @@ const Card = () => {
           <p>{todo.isComplete}</p>
         </div>
       ))}
-      <div className='flex place-items-end'>
+      <div className='flex justify-between border-t absolute bottom-0 left-0 right-0 border-gray-100 p-3'>
         <ItemsLeft numberofitems={0} />
-        <div>
+        <div className=''>
           <button>All</button>
           <button>Active</button>
           <button>Completed</button>
