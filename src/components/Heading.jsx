@@ -2,7 +2,7 @@ import React from 'react'
 
 function Heading() {
   return (
-    <h1 className='text-3xl'>todos</h1>
+    <h1 className='text-6xl font-thin text-gray-400 pb-2'>todos</h1>
   )
 }
 

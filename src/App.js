@@ -14,10 +14,9 @@ Amplify.configure(awsExports);
 
 const App = () => {
   return (
-    <div>
+    <div className='h-screen bg-gray-100 text-center pt-8'>
       <Heading />
       <Card />
-      
     </div>
   );
 };
