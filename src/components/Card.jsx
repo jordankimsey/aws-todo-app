@@ -15,7 +15,8 @@ const Card = () => {
   useEffect(() => {
     fetchTodos();
   }, []);
-console.log(todos)
+
+
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value });
   }

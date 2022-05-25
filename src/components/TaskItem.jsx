@@ -17,6 +17,7 @@ async function updateComplete() {
     setToggleComplete(!toggleComplete)
     await API.graphql(graphqlOperation(updateTodo, { input: todoDetails }));
     console.log('Updated Completed!');
+    console.log(toggleComplete)
   } catch (err) {
     console.log({ err });
   }
