@@ -1,15 +1,19 @@
 import React from 'react';
 import {FaCheck} from 'react-icons/fa'
 
-const TaskItem = ({todo}) => {
+const TaskItem = ({ todo, isComplete }) => {
+  
+
   return (
-    <div className='p-2 border-b border-gray-100 flex items-center'>
+    <div className='p-2 border-b border-gray-100 flex items-center' >
       <div>
-        <button className='border border-gray-300 rounded-full p-2 text-green-500'>
-          <FaCheck />{' '}
+        <button className={`border rounded-full p-2 ${isComplete ? 'border-green-500' : 'border-gray-300'}`}>
+          {isComplete && <FaCheck className='text-green-500' />}
         </button>
-          </div>
-          <p className='pl-2'>{ todo}</p>
+      </div>
+      <p className={`pl-2 ${isComplete && 'line-through text-gray-300'}`}>
+        {todo}
+      </p>
     </div>
   );
 };
