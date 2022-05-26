@@ -7,3 +7,4 @@ type Todo @model @searchable {
   task: String!
   isComplete: Boolean
 }
+

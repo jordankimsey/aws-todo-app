@@ -28,30 +28,30 @@ const Card = () => {
     fetchTodos();
     fetchActiveCount();
     // Subscribe to creation of Todo
-    // const subscription = API.graphql(
-    //   graphqlOperation(onCreateTodo, onUpdateTodo, onDeleteTodo)
-    // ).subscribe({
-    //   next: (todoData) => {
-    //     // fetchTodos()
-    //     console.log('subscription todo data', todoData);
-    //   },
-    //   error: (error) => console.warn(error),
-    // });
+    const subscription = API.graphql(
+      graphqlOperation(onCreateTodo, onUpdateTodo, onDeleteTodo)
+    ).subscribe({
+      next: (todoData) => {
+        // fetchTodos()
+        console.log('subscription todo data', todoData);
+      },
+      error: (error) => console.warn(error),
+    });
 
     // Stop receiving data updates from the subscription
-    // subscription.unsubscribe();
+    subscription.unsubscribe();
 
-    // const subscriptionQuery = API.graphql({
-    //   query: onCreateTodo
-    // }).subscribe({
-    //   next: todoData => {
-    //     fetchTodos()
-    //   },
-    //   error: (err) => {
-    //     console.log(err)
-    //   }
-    // })
-    // return subscriptionQuery.unsubscribe();
+    const subscriptionQuery = API.graphql({
+      query: onCreateTodo
+    }).subscribe({
+      next: todoData => {
+        fetchTodos()
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+    return subscriptionQuery.unsubscribe();
   }, []);
 
   function setInput(key, value) {
@@ -63,7 +63,7 @@ const Card = () => {
       const todoData = await API.graphql(graphqlOperation(listTodos));
       const todos = todoData.data.listTodos.items;
       setTodos(todos);
-     } catch (err) {
+    } catch (err) {
       console.log('error fetching todos');
     }
   }
@@ -82,9 +82,6 @@ const Card = () => {
     console.log(todos);
   }
 
-
-
-
   //fetch active todos
   async function fetchActive() {
     try {
@@ -92,7 +89,7 @@ const Card = () => {
       const todos = todoData.data.listTodos.items;
       setTodos(todos);
       setActiveTodos(todos);
-          } catch (err) {
+    } catch (err) {
       console.log('error fetching todos');
     }
   }
@@ -103,7 +100,7 @@ const Card = () => {
       const todoData = await API.graphql(graphqlOperation(listActiveTodos));
       const todos = todoData.data.listTodos.items;
       setActiveTodos(todos);
-        } catch (err) {
+    } catch (err) {
       console.log('error fetching todos');
     }
   }
@@ -126,8 +123,9 @@ const Card = () => {
   async function clearCompleted() {
     //fetch all active and place them in array to be deleted
     try {
-      const todoData = await API.graphql(graphqlOperation(listActiveTodos));
+      const todoData = await API.graphql(graphqlOperation(listCompletedTodos));
       const todos = todoData.data.listTodos.items;
+      console.log(todos[0].id);
       setCompletedTodos(todos);
       // checkCompletedCount();
     } catch (err) {
