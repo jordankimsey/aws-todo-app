@@ -4,7 +4,8 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { updateTodo, deleteTodo } from '../graphql/mutations';
 
 
-const TaskItem = ({ todo, isComplete, ID}) => {
+
+const TaskItem = ({ todo, isComplete, ID, fetch}) => {
   const [toggleComplete, setToggleComplete] = useState(isComplete);
 
   const todoDetails = {
@@ -15,9 +16,9 @@ const TaskItem = ({ todo, isComplete, ID}) => {
 async function updateComplete() {
   try {
     setToggleComplete(!toggleComplete)
-    await API.graphql(graphqlOperation(updateTodo, { input: todoDetails }));
+    await API.graphql(graphqlOperation(updateTodo, { input: todoDetails }))
     console.log('Updated Completed!');
-    console.log(toggleComplete)
+    fetch()
   } catch (err) {
     console.log({ err });
   }
@@ -45,7 +46,7 @@ async function updateComplete() {
 
 
   return (
-    <div className='p-2 border-b border-gray-100 flex items-center' onClick={(e) => updateComplete()}>
+    <div className='p-2 border-b border-gray-100 flex items-center' onClick={updateComplete}>
       <div>
         <button className={`border rounded-full p-2 ${isComplete ? 'border-green-500' : 'border-gray-300'}`}>
           {isComplete && <FaCheck className='text-green-500' />}
