@@ -33,7 +33,7 @@ const TaskItem = ({ todo, isComplete, ID, fetch }) => {
   }
 
   return (
-    <div className='p-2 border-b border-gray-400 flex justify-center items-center'>
+    <div className='p-2 border-b border-gray-300 flex justify-center items-center'>
       <div className='flex flex-1' onClick={updateComplete}>
         <button
           className={`border rounded-full p-3 ${

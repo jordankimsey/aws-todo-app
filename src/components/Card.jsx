@@ -149,7 +149,7 @@ const Card = () => {
           onKeyPress={(e) => e.key === 'Enter' && addTodo()}
           value={formState.task}
           placeholder='What needs to be done?'
-          className='w-full cursor-pointer p-3 border-b-2 pl-8 focus:outline-none'
+          className='w-full cursor-pointer p-3 border-b-2 border-gray-300 pl-8 focus:outline-none'
         />
       </div>
       <div className='flex flex-col'>
