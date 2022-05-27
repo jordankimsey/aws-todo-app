@@ -43,7 +43,7 @@ const TaskItem = ({ todo, isComplete, ID, fetch }) => {
           {isComplete && <FaCheck className='text-green-500' />}
         </button>
         <p
-          className={`flex-1 pl-2 ${
+          className={`pl-2 ${
             isComplete && 'line-through text-gray-300'
           }`}
         >

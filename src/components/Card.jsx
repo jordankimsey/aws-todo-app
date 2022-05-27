@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { createTodo, deleteTodo } from '../graphql/mutations';
 import {
   listTodos,
@@ -15,44 +15,53 @@ import {
   onDeleteTodo,
 } from '../graphql/subscriptions';
 
-const initialState = { task: '', isComplete: false };
+const initialState = { task: '', isComplete: '' };
 
 const Card = () => {
   const [formState, setFormState] = useState(initialState);
   const [todos, setTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [activeTodos, setActiveTodos] = useState([]);
-  // const [numberOfCompleted, setNumberOfCompleted] = useState(0)
 
   useEffect(() => {
     fetchTodos();
     fetchActiveCount();
-    // Subscribe to creation of Todo
-    const subscription = API.graphql(
-      graphqlOperation(onCreateTodo, onUpdateTodo, onDeleteTodo)
-    ).subscribe({
-      next: (todoData) => {
-        // fetchTodos()
-        console.log('subscription todo data', todoData);
-      },
-      error: (error) => console.warn(error),
-    });
-
-    // Stop receiving data updates from the subscription
-    subscription.unsubscribe();
-
-    const subscriptionQuery = API.graphql({
-      query: onCreateTodo
-    }).subscribe({
-      next: todoData => {
-        fetchTodos()
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
-    return subscriptionQuery.unsubscribe();
+    subscribeToUpdate();
+    subscribeToCreate();
+    subscribeToDelete();
   }, []);
+
+  function subscribeToUpdate() {
+    API.graphql({
+      query: onUpdateTodo,
+    }).subscribe({
+      next: (messageData) => {
+        fetchActiveCount();
+      },
+    });
+  }
+
+  function subscribeToCreate() {
+    API.graphql({
+      query: onCreateTodo,
+    }).subscribe({
+      next: (messageData) => {
+        fetchTodos();
+        fetchActiveCount();
+      },
+    });
+  }
+
+  function subscribeToDelete() {
+    API.graphql({
+      query: onDeleteTodo,
+    }).subscribe({
+      next: (messageData) => {
+        fetchTodos();
+        fetchActiveCount();
+      },
+    });
+  }
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value });
@@ -75,11 +84,9 @@ const Card = () => {
       const todos = todoData.data.listTodos.items;
       setTodos(todos);
       setCompletedTodos(todos);
-      // checkCompletedCount();
     } catch (err) {
       console.log('error fetching todos');
     }
-    console.log(todos);
   }
 
   //fetch active todos
@@ -109,36 +116,28 @@ const Card = () => {
     try {
       if (!formState.task) return;
       const todo = { ...formState };
-      // setTodos([...todos, todo]);
-      // setFormState(initialState);
-      await API.graphql(graphqlOperation(createTodo, { input: todo }));
       setTodos([...todos, todo]);
       setFormState(initialState);
+      await API.graphql(graphqlOperation(createTodo, { input: todo }));
     } catch (err) {
       console.log('error creating todo:', err);
     }
   }
 
-  //not working currently
+
+  //fecth all completed todos, map through get the ID's and delete
   async function clearCompleted() {
     //fetch all active and place them in array to be deleted
-    try {
-      const todoData = await API.graphql(graphqlOperation(listCompletedTodos));
-      const todos = todoData.data.listTodos.items;
-      console.log(todos[0].id);
-      setCompletedTodos(todos);
-      // checkCompletedCount();
-    } catch (err) {
-      console.log('error fetching todos');
-    }
-    //delete fetch todo array
-    try {
-      const todoData = await API.graphql(graphqlOperation(deleteTodo));
-      const todos = todoData.data.listTodos.items;
-      setCompletedTodos(todos);
-    } catch (err) {
-      console.log('error deleting todos');
-    }
+    const clearCompleted = await API.graphql(graphqlOperation(listCompletedTodos));
+    setCompletedTodos(clearCompleted.data.listTodos.items)  
+      
+      completedTodos.map((todo) => {
+        const deleteSingle = {
+          id: todo.id,
+        };
+        API.graphql(graphqlOperation(deleteTodo, { input: deleteSingle }));
+        return console.log(todo.id, 'Successfully Deleted');
+      })
   }
 
   return (

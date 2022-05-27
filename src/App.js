@@ -1,15 +1,19 @@
 /* src/App.js */
 import React from 'react';
 
-import Amplify from 'aws-amplify';
-
-import awsExports from './aws-exports';
-
+//import components
 import Heading from './components/Heading';
-import Card from './components/Card'
+import Card from './components/Card';
 
-
+//AWS Amplify Configure
+import { Amplify } from 'aws-amplify';
+import awsExports from './aws-exports';
 Amplify.configure(awsExports);
+
+
+
+
+
 
 
 const App = () => {
