@@ -36,8 +36,8 @@ const TaskItem = ({ todo, isComplete, ID, fetch }) => {
     <div className='p-2 border-b border-gray-100 flex justify-center items-center'>
       <div className='flex flex-1' onClick={updateComplete}>
         <button
-          className={`border rounded-full p-2 ${
-            isComplete ? 'border-green-500' : 'border-gray-300'
+          className={`border rounded-full p-3 ${
+            isComplete ? 'border-green-500 p-1' : 'border-gray-300'
           }`}
         >
           {isComplete && <FaCheck className='text-green-500' />}
