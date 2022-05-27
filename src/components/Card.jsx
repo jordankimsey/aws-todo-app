@@ -141,7 +141,7 @@ const Card = () => {
   }
 
   return (
-    <div className='container-sm mx-auto relative h-3/6 bg-white border rounded-sm border-gray-300 shadow-md w-5/6 md:w-3/5 lg:w-2/6 text-left'>
+    <div className='container-sm mx-auto relative h-3/6 bg-white border rounded-sm border-gray-400 shadow-md w-5/6 md:w-3/5 lg:w-2/6 text-left'>
       <div className='relative flex items-center text-gray-300 focus-within:text-gray-500'>
         <FaChevronDown className='absolute ml-2' />
         <input
@@ -165,30 +165,30 @@ const Card = () => {
           // </div>
         ))}
       </div>
-      <div className='text-gray-300 flex justify-between border-t absolute bottom-0 left-0 right-0 border-gray-100 p-3'>
+      <div className='text-gray-500 flex justify-between border-t absolute bottom-0 left-0 right-0 border-gray-100 p-3'>
         <ItemsLeft numberofitems={activeTodos.length} />
         <div className='flex'>
           <button
             onClick={fetchTodos}
-            className='pr-2 pl-2 hover:text-slate-400 active:border'
+            className='pr-2 pl-2 hover:text-gray-500 active:border'
           >
             All
           </button>
           <button
             onClick={fetchActive}
-            className='pr-2 pl-2 hover:text-slate-400 active:border'
+            className='pr-2 pl-2 hover:text-slate-600 active:border'
           >
             Active
           </button>
           <button
             onClick={fetchCompleted}
-            className='pr-2 pl-2 hover:text-slate-400 active:border'
+            className='pr-2 pl-2 hover:text-slate-600 active:border'
           >
             Completed
           </button>
         </div>
         <div>
-          <button onClick={clearCompleted} className='hover:text-slate-400'>
+          <button onClick={clearCompleted} className='hover:text-slate-600'>
             Clear Completed
           </button>
         </div>
